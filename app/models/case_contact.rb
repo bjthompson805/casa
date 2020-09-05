@@ -5,7 +5,7 @@ class CaseContact < ApplicationRecord
   validate :contact_made_chosen
   validates :contact_types, presence: true
   validate :contact_types_included
-  validates :duration_minutes, numericality: { greater_than_or_equal_to: 15, message: "Minimum case contact duration should be 15 minutes." }
+  validates :duration_minutes, numericality: {greater_than_or_equal_to: 15, message: "Minimum case contact duration should be 15 minutes."}
   validates :medium_type, presence: true
   validates :occurred_at, presence: true
   validate :occurred_at_not_in_future
@@ -62,8 +62,8 @@ class CaseContact < ApplicationRecord
   end
 
   def contact_made_chosen
-    return !contact_made.nil?
-    errors[:base] << "Must enter whether the contact was made."
+    errors[:base] << "Must enter whether the contact was made." if contact_made.nil?
+    !contact_made.nil?
   end
 end
 

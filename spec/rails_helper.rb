@@ -7,9 +7,8 @@ require "rspec/rails"
 require "pundit/rspec"
 require "webdrivers" unless ENV["DOCKER"]
 
-
 # Require all support folder files
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each { |f| require f }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -21,7 +20,9 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include Devise::Test::ControllerHelpers, type: :view
   config.include Warden::Test::Helpers
+  config.include SessionHelper, type: :view
   config.after do
     Warden.test_reset!
   end
